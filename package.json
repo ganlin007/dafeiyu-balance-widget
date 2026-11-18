@@ -1,0 +1,59 @@
+{
+  "name": "dsh-whale-desktop",
+  "productName": "DSH Whale Desktop",
+  "version": "0.3.18",
+  "description": "DSH 小鲸鱼记账挂件的独立桌面版：鲸鱼娘常驻桌面（透明置顶 + 鼠标穿透），余额 / 今日已用 / 峰谷定价 / 泡泡系统 / 自定义角色 / 音效 / 吸附翻转全部保留；与 DSH 共用同一份凭据与账本。",
+  "author": "whale-desktop (wrapper around MeteorNOX/DeepSeek-Balance-Whale-Widget, MIT)",
+  "private": true,
+  "type": "module",
+  "main": "src/main.mjs",
+  "scripts": {
+    "start": "electron .",
+    "selftest": "electron . --selftest",
+    "smoke": "node tools/smoke.mjs",
+    "link-test": "node tools/link-test.mjs",
+    "render-check": "node tools/render-check.mjs",
+    "dist": "electron-builder",
+    "dist:dir": "electron-builder --dir",
+    "test": "node tools/smoke.mjs && node tools/link-test.mjs && node tools/verify-vendor.mjs",
+    "verify-vendor": "node tools/verify-vendor.mjs",
+    "make-manifest": "node tools/make-vendor-manifest.mjs"
+  },
+  "dependencies": {
+    "fzstd": "^0.1.1"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.meteornox.dsh.whale.desktop",
+    "productName": "DSH Whale Desktop",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "vendor/**/*",
+      "package.json",
+      "README.md"
+    ],
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "icon": "vendor/dsh-whale/assets/DSniang1.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "小鲸鱼桌面挂件"
+    },
+    "portable": {
+      "artifactName": "DSH-Whale-Desktop-portable-${version}.exe"
+    }
+  }
+}
